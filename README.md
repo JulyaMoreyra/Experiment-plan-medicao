@@ -1,132 +1,255 @@
 # Experiment Plan – Scoping and Planning
 
-## Basic Identification
+## 1. Basic Identification
 
-### **Experiment Title**
+### Experiment Title
 **Quality and Maintainability in Legacy Software: An Empirical Analysis of Refactorings on GitHub**
 
-### **ID / Code**
-**Experiment ID:** PUCM-ES-RES-2025-001
+### ID / Code
+**PUCM-ES-RES-2025-001**
 
-### **Document Version and Revision History**
-
+### Document Version and Revision History
 | Field | Value |
 |-------|--------|
-| Document Version | v1.0 |
-| Revision History | - v1.0 — Initial draft (21 Nov 2025) — Júlia Moreira |
+| Document Version | v1.1 |
+| Revision History | - v1.0 — Initial draft (21 Nov 2025)<br>- v1.1 — Second delivery (25 Nov 2025) |
 
-### **Dates (creation, last update)**
-
+### Dates
 | Field | Value |
-|-------|--------|
+|--------|--------|
 | Creation Date | 21 November 2025 |
+| Adding Sections | 25 November 2025 |
 
-### **Author (name, department, contact)**
+### Author
+**Júlia Moreira** — Software Engineering Department  
+Email: **moreira01092002@gmail.com**
 
-- **Author 1:** Júlia Moreira, Software Engineering Department  
-  Email: *moreira01092002@gmail.com*
+### Principal Investigator
+**Nascimento** (Study Lead)
 
-### **Principal Investigator / Experiment Owner**
+### Related Work Overview
+Prior studies indicate that:
+- Refactoring improves structure but is risky in legacy systems.
+- Refactoring React-based legacy systems reduces inconsistency but requires careful coordination.
+- Refactorings often emerge during code review instead of planned technical-debt management.
+- Large industrial repositories show complex refactoring branch dynamics.
+- Multi-objective refactoring recommendation tools optimize decision-making.
 
-- **PI / Owner:** Nascimento (Principal Investigator / Study Lead)
-
-### **Related Project / Product / Initiative**
-
-Recent research has explored challenges and opportunities in refactoring legacy software systems, offering empirical insights relevant to this study.
-
-Yanakiev et al. (2025) describe the application of SOLID principles in legacy systems and show improvements in structural complexity and maintainability.  
-Ferreira et al. (2024) explore refactoring in React applications and highlight technical debt issues caused by framework evolution.  
-Coelho et al. (2025) analyze refactorings triggered during code reviews, emphasizing their socio-technical nature.  
-Alomar et al. (2025) investigate refactoring branches in the Qt ecosystem, identifying risks and integration challenges.  
-Chen et al. (2024) propose MORCoRA, a multi-objective refactoring recommender considering reviewer availability.
-
-These studies provide a solid foundation for understanding refactoring in legacy systems.
+These studies support the motivation behind this experiment.
 
 ---
 
-# Context and Problem
+# 2. Context and Problem
 
-Legacy software systems remain essential in governments, financial institutions, and enterprises. Despite their importance, modernization imposes huge financial and organizational burdens. According to Charette (IEEE Spectrum), since 2010 organizations have spent **US\$35 trillion** on IT, with **75%** devoted to maintaining existing systems.
+Legacy systems underpin critical operations across governments, finance, and enterprises.  
+Despite this, they:
+- are costly to maintain,
+- rely on outdated technologies,
+- accumulate technical debt,
+- and frequently fail in modernization attempts.
 
-Additionally, approximately **US\$720 billion** has been wasted on failed modernization projects, including unsuccessful refactoring and rewrite attempts.
+Since 2010, **US \$35 trillion** has been spent on IT, **75%** of which went to maintenance.  
+Among **US \$2.5 trillion** in modernization attempts, **\$720 billion** was wasted on failed efforts.
 
-Legacy systems rely on outdated technologies, unsupported hardware, and decades of accumulated architectural erosion. This makes modernization risky and expensive.
+Refactoring is a lower-risk modernization technique but often fails due to:
+- regressions,
+- insufficient testing,
+- complexity,
+- metadata noise,
+- and poor planning.
 
-In 2019, nearly **80%** of the U.S. government’s IT budget** was spent just to keep legacy systems running.
-
-Refactoring is positioned as a lower-risk alternative to rewriting entire systems, but its success is inconsistent and often lacks empirical grounding. This motivates the present study: to analyze real refactoring efforts in open-source repositories and identify what differentiates successful from unsuccessful attempts.
-
----
-
-## Problem / Opportunity Description
-
-Legacy systems, despite their critical role, suffer from low performance, poor maintainability, and high structural complexity. Refactoring is a common strategy to improve internal quality while preserving behavior.
-
-However, in practice many refactorings **fail**. Symptoms include:
-
-- increased defect rates  
-- longer development cycles  
-- rising maintenance costs  
-- limited adherence to best practices  
-
-Organizations invest heavily in modernization, but many efforts fail due to poor planning, absence of metrics, and insufficient understanding of refactoring impact.
-
-Thus, this study presents an opportunity to **empirically analyze successful and unsuccessful refactorings** in GitHub repositories to extract actionable patterns and risk indicators.
+This study analyzes successful and unsuccessful refactorings on GitHub to identify patterns that differentiate them.
 
 ---
 
-## Organizational and Technical Context
+# 3. Goals and Questions (GQM Framework)
 
-Refactoring legacy systems happens under strong constraints:
-
-### **Organizational**
-- high dependency on stability and availability  
-- regulatory demands  
-- budget limitations  
-- pressure for continuous delivery  
-
-### **Technical**
-- outdated languages and frameworks  
-- monolithic architectures  
-- low test coverage  
-- insufficient documentation  
-- tightly coupled modules  
-- loss of institutional knowledge  
-
-These factors reinforce the need for empirical analysis in environments where repository evolution can be observed.
+## 3.1 General Goal
+Analyze refactoring activities in legacy software repositories to understand their impact on internal quality and maintainability within long-lived GitHub projects.
 
 ---
 
-## Prior Work and Evidence (Internal and External)
+## 3.2 Specific Objectives
 
-Studies such as Yanakiev et al. (2025) and Ferreira et al. (2024) show that incremental refactoring often improves maintainability, though outcomes differ depending on context.
-
-Coelho et al. (2025) highlight the socio-technical role of code reviews in triggering refactorings.  
-Alomar et al. (2025) show that poorly structured refactoring branches can lead to regressions.  
-Chen et al. (2024) show that reviewer availability affects refactoring prioritization.
-
-Industry reports show billions wasted in failed modernization projects, reinforcing the need for better understanding of refactoring dynamics.
+- **O1:** Identify structural/code-quality characteristics that differentiate successful from unsuccessful refactorings.  
+- **O2:** Evaluate how refactorings affect maintainability indicators (complexity, smells, change-proneness).  
+- **O3:** Analyze socio-technical factors associated with refactoring outcomes.  
+- **O4:** Assess the reliability of metadata and automated refactoring-detection tools.
 
 ---
 
-## Essential Theoretical and Empirical Background
+## 3.3 Research Questions
 
-This study is grounded in:
+### O1 — Structural Characteristics
+- Q1.1: What structural properties change before and after refactoring?  
+- Q1.2: How often do unsuccessful refactorings introduce regressions?  
+- Q1.3: Which refactoring types correlate with internal-quality improvements?
 
-### **Software Maintenance and Evolution Theory**
-- Lehman's Laws: systems degrade unless continuously evolved.
+### O2 — Maintainability Impact
+- Q2.1: How do complexity metrics evolve after refactoring?  
+- Q2.2: Does refactoring reduce code smells?  
+- Q2.3: What is the effect on change-proneness?
 
-### **Refactoring Theory**
-- Fowler (2018) and Mens & Tourwé (2004): refactoring is a behavior-preserving structural improvement.
+### O3 — Socio-technical Factors
+- Q3.1: How does developer experience affect refactoring success?  
+- Q3.2: What review patterns appear in successful vs unsuccessful refactorings?  
+- Q3.3: Does development activity intensity increase defect likelihood?
 
-### **Technical Debt**
-- High technical debt increases defects and long-term costs.  
-- Legacy systems accumulate architectural debt and code smells.
+### O4 — Metadata and Tool Reliability
+- Q4.1: How accurate are automated refactoring-detection tools?  
+- Q4.2: What false positives/negatives occur?  
+- Q4.3: How reliable are commit messages and metadata?
 
-### **Empirical Software Engineering**
-- Repository mining  
-- Automated refactoring tools  
-- Multi-objective decision support  
+---
 
-These theories support the methodology of examining real refactorings in public GitHub repositories.
+# 3.4 GQM Table
 
+| Goal | Questions | Metrics |
+|------|-----------|---------|
+| **O1 — Structural characteristics** | Q1.1 | M1, M2 |
+| | Q1.2 | M3, M4 |
+| | Q1.3 | M5, M6 |
+| **O2 — Maintainability impact** | Q2.1 | M2, M7 |
+| | Q2.2 | M8, M9 |
+| | Q2.3 | M10, M11 |
+| **O3 — Socio-technical factors** | Q3.1 | M12, M3 |
+| | Q3.2 | M13, M14 |
+| | Q3.3 | M11, M3 |
+| **O4 — Tool reliability** | Q4.1 | M15, M16 |
+| | Q4.2 | M15, M17 |
+| | Q4.3 | M18, M19 |
+
+---
+
+# 3.5 Metrics Table
+
+| Metric | Description | Unit |
+|--------|-------------|-------|
+| M1 | LOC variation | LOC |
+| M2 | Cyclomatic complexity variation | Absolute |
+| M3 | Post-refactoring defect count | Defects |
+| M4 | Defect density | Def./KLOC |
+| M5 | Refactoring type distribution | % |
+| M6 | Static analysis quality score | 0–100 |
+| M7 | Halstead complexity shift | Absolute |
+| M8 | Code smell count | Count |
+| M9 | Code duplication ratio | % |
+| M10 | Change-proneness index | Changes/month |
+| M11 | Churn volume | LOC |
+| M12 | Developer experience level | Commits |
+| M13 | Review comments count | Comments |
+| M14 | Review participation size | People |
+| M15 | Tool precision | % |
+| M16 | Tool recall | % |
+| M17 | False positive rate | % |
+| M18 | Metadata consistency index | % |
+| M19 | Commit-message accuracy | % |
+
+---
+
+# 4. Scope and Context
+
+## 4.1 Scope (Included / Excluded)
+
+### Included
+- Mining GitHub repositories  
+- Extracting refactoring data  
+- Manual + automated validation  
+- Commits, PRs, diffs, static-analysis reports  
+- Legacy modules (≥ 5 years, ≥ 500 commits)
+
+### Excluded
+- Interviews with developers  
+- Proprietary repositories  
+- Runtime performance evaluation  
+- Non-refactoring commits  
+
+---
+
+## 4.2 Study Context
+- Open-source, distributed teams  
+- Long-lived legacy codebases  
+- Medium criticality  
+- Mixed developer experience levels  
+
+---
+
+## 4.3 Assumptions
+- Repository history is intact  
+- Tools function reliably  
+- Metadata accessible  
+- Version-control best practices followed  
+
+---
+
+## 4.4 Constraints
+- Limited time for manual validation  
+- Dependence on tool accuracy  
+- GitHub API rate limits  
+- No contact with developers  
+
+---
+
+## 4.5 Limitations
+- Limited generalization to industrial systems  
+- Metadata noise  
+- Mixed commits (refactoring + features)  
+- Non-representative repository sample  
+
+---
+
+# 5. Stakeholders and Impact
+
+## 5.1 Stakeholders
+- Software engineers  
+- Researchers  
+- Open-source maintainers  
+- Technical leaders  
+- Tool developers  
+
+---
+
+## 5.2 Stakeholder Interests
+- Engineers: Understanding refactoring risks  
+- Researchers: Empirical evidence  
+- Maintainers: Lower technical debt  
+- Tech leads: Better modernization decisions  
+- Tool developers: Real-world validation  
+
+---
+
+## 5.3 Impact
+- Additional workload  
+- Potential temporary delays  
+- Better risk awareness  
+- Improved modernization strategies  
+
+---
+
+# 6. Risks, Assumptions, and Success Criteria
+
+## 6.1 High-Level Risks
+- GitHub API failures  
+- Tool inaccuracies  
+- Metadata noise  
+- Time limitations  
+- Large dataset processing cost  
+
+---
+
+## 6.2 Success Criteria (Go / No-Go)
+The experiment is successful if:
+- ≥ 70% refactorings manually validated  
+- Precision ≥ 75% and recall ≥ 70%  
+- ≥ 80% of research questions answered  
+- Clear distinction between successful and unsuccessful refactorings  
+
+Otherwise → **No-Go**
+
+---
+
+## 6.3 Early Stop Criteria
+- GitHub API unavailable  
+- Tool malfunction  
+- Repositories deleted/private  
+- Insufficient computing/storage resources  
